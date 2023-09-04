@@ -5,6 +5,7 @@ import com.javarush.engine.cell.*;
 public class SpaceInvadersGame extends Game {
     public static final int WIDTH = 64;
     public static final int HEIGHT = 64;
+    private List<Star> stars;
 
     @Override
     public void initialize() {
@@ -13,6 +14,7 @@ public class SpaceInvadersGame extends Game {
     }
 
     private void createGame() {
+        createStars();
         drawScene();
     }
 
@@ -26,5 +28,19 @@ public class SpaceInvadersGame extends Game {
                 setCellValueEx(x, y, Color.BLACK, "");
             }
         }
+
+        for (Star star : stars) {
+            star.draw(this);
+        }
     }
+
+    private void createStars() {
+        stars = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            int x = getRandomNumber(WIDTH);
+            int y = getRandomNumber(HEIGHT);
+            stars.add(new Star(x, y));
+        }
+    }
+
 }

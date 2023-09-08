@@ -6,6 +6,7 @@ public class SpaceInvadersGame extends Game {
     public static final int WIDTH = 64;
     public static final int HEIGHT = 64;
     private List<Star> stars;
+    private EnemyFleet enemyFleet;
 
     @Override
     public void initialize() {
@@ -13,13 +14,22 @@ public class SpaceInvadersGame extends Game {
         createGame();
     }
 
-    private void createGame() {
-        createStars();
+    @Override
+    public void onTurn(int step) {
         drawScene();
     }
 
+    private void createGame() {
+        enemyFleet = new EnemyFleet();
+        createStars();
+        drawScene();
+        setTurnTimer(40);
+    }
+
     private void drawScene() {
+
         drawField();
+        enemyFleet.draw(this);
     }
 
     private void drawField() {

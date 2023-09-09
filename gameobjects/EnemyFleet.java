@@ -30,5 +30,25 @@ public class EnemyFleet {
             }
         }
     }
+
+    private double getLeftBorder() {
+        double left = SpaceInvadersGame.WIDTH;
+        for (GameObject ship : ships) {
+            if (ship.x < left) {
+                left = ship.x;
+            }
+        }
+        return left;
+    }
+
+    private double getRightBorder() {
+        double right = 0;
+        for (GameObject ship : ships) {
+            if (ship.x + ship.width > right) {
+                right = ship.x + ship.width;
+            }
+        }
+        return right;
+    }
 }
 

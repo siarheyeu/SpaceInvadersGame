@@ -62,7 +62,8 @@ public class EnemyFleet {
     }
 
     public void move() {
-
+        if (ships.isEmpty()) {
+            return;
     }
 }
 

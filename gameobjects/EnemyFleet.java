@@ -65,5 +65,20 @@ public class EnemyFleet {
         if (ships.isEmpty()) {
             return;
     }
+
+        Direction currentDirection = direction;
+        if (direction == Direction.LEFT && getLeftBorder() < 0) {
+            direction = Direction.RIGHT;
+            currentDirection = Direction.DOWN;
+        } else if (direction == Direction.RIGHT && getRightBorder() > SpaceInvadersGame.WIDTH) {
+            direction = Direction.LEFT;
+            currentDirection = Direction.DOWN;
+        }
+
+        double speed = getSpeed();
+        for (EnemyShip ship : ships) {
+            ship.move(currentDirection, speed);
+        }
+    }
 }
 

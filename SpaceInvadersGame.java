@@ -8,6 +8,8 @@ public class SpaceInvadersGame extends Game {
     private List<Star> stars;
     private EnemyFleet enemyFleet;
 
+    public static final int COMPLEXITY = 5;
+
     @Override
     public void initialize() {
         setScreenSize(WIDTH, HEIGHT);

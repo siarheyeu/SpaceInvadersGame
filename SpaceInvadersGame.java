@@ -7,6 +7,7 @@ public class SpaceInvadersGame extends Game {
     public static final int HEIGHT = 64;
     private List<Star> stars;
     private EnemyFleet enemyFleet;
+    private List<Bullet> enemyBullets;
 
     public static final int COMPLEXITY = 5;
 
@@ -19,20 +20,31 @@ public class SpaceInvadersGame extends Game {
     @Override
     public void onTurn(int step) {
         moveSpaceObjects();
+        check();
+
+        Bullet bullet = enemyFleet.fire(this);
+        if (bullet != null) {
+            enemyBullets.add(bullet);
+        }
+
         drawScene();
     }
 
     private void createGame() {
         enemyFleet = new EnemyFleet();
+        enemyBullets = new ArrayList<>();
         createStars();
         drawScene();
         setTurnTimer(40);
     }
 
     private void drawScene() {
-
         drawField();
         enemyFleet.draw(this);
+
+        for (Bullet bullet : enemyBullets) {
+            bullet.draw(this);
+        }
     }
 
     private void drawField() {
@@ -57,7 +69,23 @@ public class SpaceInvadersGame extends Game {
     }
 
     private void moveSpaceObjects() {
+
         enemyFleet.move();
+
+        for (Bullet enemyBullet : enemyBullets) {
+            enemyBullet.move();
+        }
     }
 
+    private void removeDeadBullets() {
+        for (Bullet bullet : new ArrayList<>(enemyBullets)) {
+            if (!bullet.isAlive || bullet.y >= HEIGHT - 1) {
+                enemyBullets.remove(bullet);
+            }
+        }
+    }
+
+    private void check() {
+        removeDeadBullets();
+    }
 }
